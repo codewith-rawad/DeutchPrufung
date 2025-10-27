@@ -1,657 +1,850 @@
 <!doctype html>
 <html lang="de">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>A1 Interaktiver Test — Vollversion (50 Fragen)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#f6fbf8;
-      --card:#ffffff;
-      --muted:#566e66;
-      --accent:#1b6b4a; /* Goethe-like green */
-      --accent-dark:#0f4f36;
-      --danger:#d64545;
-      --radius:12px;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-      color-scheme: light;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#eaf6ef,#f6fbf8);padding:20px;color:#083026}
-    .container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:300px 1fr;gap:20px}
-    header.app{grid-column:1/-1;background:var(--card);padding:16px;border-radius:12px;display:flex;align-items:center;gap:14px;border:1px solid rgba(8,48,38,0.06)}
-    .logo{width:64px;height:64px;border-radius:10px;background:linear-gradient(180deg,var(--accent),var(--accent-dark));color:white;display:flex;align-items:center;justify-content:center;font-weight:800}
-    h1{margin:0;font-size:18px}
-    .lead{margin:0;color:var(--muted);font-size:13px}
-    nav.card{padding:12px;border-radius:12px;background:var(--card);border:1px solid rgba(8,48,38,0.06)}
-    main .card{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(8,48,38,0.06)}
-    .btn{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700}
-    .btn.secondary{background:transparent;border:1px solid rgba(8,48,38,0.06);color:var(--accent-dark)}
-    .muted{color:var(--muted);font-size:13px}
-    .text-block{background:linear-gradient(180deg,#fbfffb,#ffffff);padding:12px;border-radius:8px;border:1px solid rgba(8,48,38,0.03);line-height:1.5}
-    .mcq{padding:12px;border-radius:8px;border:1px solid rgba(8,48,38,0.03);margin-top:10px}
-    .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .opts label{padding:8px 10px;border-radius:8px;background:#f3fbf6;border:1px solid rgba(8,48,38,0.03);cursor:pointer}
-    input[type="radio"]{accent-color:var(--accent)}
-    textarea{width:100%;min-height:140px;padding:10px;border-radius:8px;border:1px solid rgba(8,48,38,0.08);resize:vertical}
-    .short{padding:8px;border-radius:8px;border:1px solid rgba(8,48,38,0.06);background:#fbfff9}
-    .status{margin-left:auto;display:flex;gap:8px}
-    .status .ok{color:green}
-    .status .err{color:var(--danger)}
-    .per-q-status{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
-    .q-status{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;background:#f3fbf6;border:1px solid rgba(8,48,38,0.03)}
-    .q-status .icon{font-size:18px}
-    .result-box{display:flex;gap:12px;align-items:center}
-    .score-big{font-size:36px;font-weight:800;color:var(--accent-dark)}
-    .cert-input{padding:8px;border-radius:8px;border:1px solid rgba(8,48,38,0.06)}
-    @media (max-width:980px){.container{grid-template-columns:1fr;padding:12px}nav.card{position:relative}}
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>A1 Interaktiver Test — Vollversion (50 Fragen)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6fbf8;
+            --card: #ffffff;
+            --muted: #566e66;
+            --accent: #1b6b4a;
+            /* Goethe-like green */
+            --accent-dark: #0f4f36;
+            --danger: #d64545;
+            --radius: 12px;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            color-scheme: light;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #eaf6ef, #f6fbf8);
+            padding: 20px;
+            color: #083026
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px
+        }
+
+        header.app {
+            grid-column: 1/-1;
+            background: var(--card);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid rgba(8, 48, 38, 0.06)
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 18px
+        }
+
+        .lead {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        nav.card {
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--card);
+            border: 1px solid rgba(8, 48, 38, 0.06)
+        }
+
+        main .card {
+            background: var(--card);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(8, 48, 38, 0.06)
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700
+        }
+
+        .btn.secondary {
+            background: transparent;
+            border: 1px solid rgba(8, 48, 38, 0.06);
+            color: var(--accent-dark)
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .text-block {
+            background: linear-gradient(180deg, #fbfffb, #ffffff);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(8, 48, 38, 0.03);
+            line-height: 1.5
+        }
+
+        .mcq {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(8, 48, 38, 0.03);
+            margin-top: 10px
+        }
+
+        .opts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px
+        }
+
+        .opts label {
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #f3fbf6;
+            border: 1px solid rgba(8, 48, 38, 0.03);
+            cursor: pointer
+        }
+
+        input[type="radio"] {
+            accent-color: var(--accent)
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(8, 48, 38, 0.08);
+            resize: vertical
+        }
+
+        .short {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(8, 48, 38, 0.06);
+            background: #fbfff9
+        }
+
+        .status {
+            margin-left: auto;
+            display: flex;
+            gap: 8px
+        }
+
+        .status .ok {
+            color: green
+        }
+
+        .status .err {
+            color: var(--danger)
+        }
+
+        .per-q-status {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .q-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            background: #f3fbf6;
+            border: 1px solid rgba(8, 48, 38, 0.03)
+        }
+
+        .q-status .icon {
+            font-size: 18px
+        }
+
+        .result-box {
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .score-big {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent-dark)
+        }
+
+        .cert-input {
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(8, 48, 38, 0.06)
+        }
+
+        @media (max-width:980px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 12px
+            }
+
+            nav.card {
+                position: relative
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container" role="application" aria-label="A2 Interaktiver Test">
-    <header class="app">
-      <div class="logo" aria-hidden="true">A2</div>
-      <div>
-        <h1>A2 Interaktiver Test — Vollversion (50 Fragen)</h1>
-        <p class="lead muted">Lesen (20) · Grammatik (29) · Schreiben (1) — Zertifikat Deutsch (DE)</p>
-      </div>
-      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
-        <label class="muted">Name:</label>
-        <input id="userNameTop" class="cert-input" placeholder="Vorname Nachname" />
-        <button class="btn" id="startBtn">Start</button>
-      </div>
-    </header>
-
-    <nav class="card" aria-label="Navigation">
-      <h3>Abschnitte</h3>
-      <ul style="list-style:none;padding:0">
-        <li style="margin:10px 0"><strong>1.</strong> Lesen (20)</li>
-        <li style="margin:10px 0"><strong>2.</strong> Grammatik (29)</li>
-        <li style="margin:10px 0"><strong>3.</strong> Schreiben (1)</li>
-        <li style="margin:10px 0"><strong>4.</strong> Ergebnis & Zertifikat</li>
-      </ul>
-      <p class="muted">Hinweis: Lösungen **werden nicht** angezeigt. Nur ✓ / ✗ nach Korrektur.</p>
-    </nav>
-
-    <main>
-      <!-- Lesen -->
-      <section id="lesen" class="card" aria-labelledby="lesenTitle">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div>
-            <h2 id="lesenTitle">Teil 1 — Lesen: Reisen und Lernen im Ausland</h2>
-            <div class="muted">Lies den Text sorgfältig. 20 Fragen  Jede Frage = 2 Punkte.</div>
-          </div>
-          <div class="status" aria-hidden="true">
-            <div class="muted">Status:</div>
-            <div id="lesenStatus" class="muted">Nicht bewertet</div>
-          </div>
-        </div>
-
-        <div class="text-block" id="readingText" aria-label="Text Lesen">
-          <!-- النص طُوِّر ليكون تحديًا لمستوى A2 -->
-          <p><strong>Reisen und Lernen im Ausland — Ein Erfahrungsbericht</strong></p>
-          <p>Als ich vor drei Jahren zum ersten Mal für ein Semester nach Spanien ging, wusste ich nicht genau, was mich erwartete. Die Universität in Valencia bot einen intensiven Sprachkurs an, kombiniert mit Vorlesungen in Internationaler Wirtschaft. Anfangs war es schwierig: der Tagesablauf, das Studieren in einer fremden Sprache und die Suche nach einer Wohnung.</p>
-          <p>Doch bald lernte ich, den Alltag zu organisieren. Ich fand Mitbewohner in einer Wohngemeinschaft, entdeckte günstige Cafés zum Lernen und schloss Freundschaften mit Studierenden aus verschiedenen Ländern. Wichtiger als die Vorlesungen war für mich die Praxis: Sprachcafés, Tandempartner und die Arbeit in einem kleinen Café halfen mir, die Sprache anzuwenden.</p>
-          <p>Ein unerwarteter Vorteil war, dass ich mich beruflich besser orientieren konnte. Durch Praktika in lokalen Firmen bekam ich Einblicke in unterschiedliche Arbeitskulturen. Nicht alles war einfach: Bürokratische Hürden, Wohnungen mit kurzer Laufzeit und Heimweh belasteten mich zwischendurch. Aber die Erfahrung hat meinen Horizont erweitert und mich selbstständiger gemacht.</p>
-          <p>Heute reise ich regelmäßig, nehme an internationalen Projekten teil und nutze die Fähigkeiten, die ich damals lernte, in meinem Beruf. Für jeden, der ernsthaft eine Sprache lernen will, ist ein Auslandaufenthalt eine intensive, aber lohnende Herausforderung.</p>
-        </div>
-
-        <div id="readingQuestions">
-          <!-- سيتم توليد 20 سؤالًا هنا: 10 MCQ (صعبة) + 10 مقالية قصيرة -->
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-          <button class="btn" id="gradeReadBtn">Lesen bewerten</button>
-          <button class="btn secondary" data-goto="grammatik">Weiter: Grammatik</button>
-          <div id="lesenResult" class="muted" style="margin-left:12px">Punkte: - / 40</div>
-        </div>
-      </section>
-
-      <!-- Grammatik -->
-      <section id="grammatik" class="card" aria-labelledby="grammatikTitle" style="margin-top:16px;display:none">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div>
-            <h2 id="grammatikTitle">Teil 2 — Grammatik & Wortschatz (29 Fragen)</h2>
-            <div class="muted">29 MCQs — jede Frage = 2 Punkte.</div>
-          </div>
-          <div class="status">
-            <div class="muted">Status:</div>
-            <div id="gramStatus" class="muted">Nicht bewertet</div>
-          </div>
-        </div>
-
-        <div id="grammarQuestions" style="margin-top:12px">
-          <!-- توليد أسئلة القواعد هنا -->
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-          <button class="btn" id="gradeGramBtn">Grammatik bewerten</button>
-          <button class="btn secondary" data-goto="schreiben">Weiter: Schreiben</button>
-          <div id="gramResult" class="muted" style="margin-left:12px">Punkte: - / 58</div>
-        </div>
-      </section>
-
-      <!-- Schreiben -->
-      <section id="schreiben" class="card" aria-labelledby="schreibenTitle" style="margin-top:16px;display:none">
-        <div style="display:flex;align-items:center;gap:12px">
-          <div>
-            <h2 id="schreibenTitle">Teil 3 — Schreiben (1 Aufgabe)</h2>
-            <div class="muted">Schreibe eine kurze E-Mail (ca. 80–120 Wörter). Aufgabe = 2 Punkte.</div>
-          </div>
-          <div class="status">
-            <div class="muted">Status:</div>
-            <div id="writeStatus" class="muted">Nicht bewertet</div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <p class="muted"><strong>Aufgabe:</strong> Du musst dich bei einer Sprachschule über einen Intensivkurs informieren. Schreibe eine höfliche E-Mail: Stelle dich kurz vor, nenne deine Ziele, frage nach Terminen und Kosten. (80–120 Wörter)</p>
-          <textarea id="essay" placeholder="Sehr geehrte Damen und Herren, ..."></textarea>
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-          <button class="btn" id="gradeWriteBtn">Schreiben bewerten</button>
-          <button class="btn secondary" data-goto="ergebnis">Zum Ergebnis</button>
-          <div id="writeResult" class="muted" style="margin-left:12px">Punkte: - / 2</div>
-        </div>
-        <div id="writingHints" class="muted" style="margin-top:10px"></div>
-      </section>
-
-      <!-- Ergebnis -->
-      <section id="ergebnis" class="card" aria-labelledby="ergebnisTitle" style="margin-top:16px;display:none">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div>
-            <h2 id="ergebnisTitle">Ergebnis & Zertifikat</h2>
-            <div class="muted">Gesamtpunkte (100). Zertifikat auf Deutsch.</div>
-          </div>
-          <div>
-            <label class="muted">Name (für Zertifikat)</label>
-            <input id="certName" class="cert-input" placeholder="Vorname Nachname" />
-          </div>
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:14px;align-items:center">
-          <div style="flex:0 0 220px;padding:12px;border-radius:8px;background:#f3fbf6;border:1px solid rgba(8,48,38,0.04)">
-            <div class="muted">Gesamt</div>
-            <div id="scorePct" class="score-big">0 / 100</div>
-            <div id="scoreEval" class="muted">Bewertung: -</div>
-          </div>
-          <div style="flex:1">
-            <div id="scoreBreakdown" class="muted">Lesen: - / 40 · Grammatik: - / 58 · Schreiben: - / 2</div>
-            <div style="margin-top:12px">
-              <div id="correctCount" class="muted">✅ Richtig: 0</div>
-              <div id="wrongCount" class="muted">❌ Falsch: 0</div>
+    <div class="container" role="application" aria-label="A1 Interaktiver Test">
+        <header class="app">
+            <div class="logo" aria-hidden="true">A1</div>
+            <div>
+                <h1>A1 Interaktiver Test — Vollversion (50 Fragen)</h1>
+                <p class="lead muted">Lesen (20) · Grammatik (29) · Schreiben (1) — Zertifikat Deutsch (DE)</p>
             </div>
-          </div>
-        </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                <label class="muted">Name:</label>
+                <input id="userNameTop" class="cert-input" placeholder="Vorname Nachname" />
+                <button class="btn" id="startBtn">Start</button>
+            </div>
+        </header>
 
-        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-          <button class="btn" id="downloadCert">Zertifikat herunterladen (PDF)</button>
-          <button class="btn secondary" id="downloadReport">Ergebnis (JSON)</button>
-        </div>
-      </section>
-    </main>
-  </div>
+        <nav class="card" aria-label="Navigation">
+            <h3>Abschnitte</h3>
+            <ul style="list-style:none;padding:0">
+                <li style="margin:10px 0"><strong>1.</strong> Lesen (20)</li>
+                <li style="margin:10px 0"><strong>2.</strong> Grammatik (29)</li>
+                <li style="margin:10px 0"><strong>3.</strong> Schreiben (1)</li>
+                <li style="margin:10px 0"><strong>4.</strong> Ergebnis & Zertifikat</li>
+            </ul>
+            <p class="muted">Hinweis: Lösungen **werden nicht** angezeigt. Nur ✓ / ✗ nach Korrektur.</p>
+        </nav>
 
-  <!-- jsPDF CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <main>
+            <!-- Lesen -->
+            <section id="lesen" class="card" aria-labelledby="lesenTitle">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <div>
+                        <h2 id="lesenTitle">Teil 1 — Lesen: Reisen und Lernen im Ausland</h2>
+                        <div class="muted">Lies den Text sorgfältig. 20 Fragen Jede Frage = 2 Punkte.</div>
+                    </div>
+                    <div class="status" aria-hidden="true">
+                        <div class="muted">Status:</div>
+                        <div id="lesenStatus" class="muted">Nicht bewertet</div>
+                    </div>
+                </div>
 
-  <script>
-  /*****************************************************************
-   * A2 Vollversion — 50 Fragen
-   * - Lesen: 20 (10 MCQ schwer + 10 Freitext kurz) → 20 Fragen x 2 Punkte = 40
-   * - Grammatik: 29 MCQ → 29 x 2 = 58
-   * - Schreiben: 1 Aufgabe → 1 x 2 = 2
-   * Gesamt = 100 Punkte
-   *
-   * Sicherheitsprinzip:
-   * - الإجابات الصحيحة مخفية داخل closure وتُحوَّل إلى SHA-256 فقط.
-   * - عند التصحيح نقارن التجزئات ولا نعرض الحلول.
-   *****************************************************************/
+                <div class="text-block" id="readingText" aria-label="Text Lesen">
+                    <!-- النص طُوِّر ليكون تحديًا لمستوى A1 -->
+                    <p><strong>Reisen und Lernen im Ausland — Ein Erfahrungsbericht</strong></p>
+                    <p>Als ich vor drei Jahren zum ersten Mal für ein Semester nach Spanien ging, wusste ich nicht
+                        genau, was mich erwartete. Die Universität in Valencia bot einen intensiven Sprachkurs an,
+                        kombiniert mit Vorlesungen in Internationaler Wirtschaft. Anfangs war es schwierig: der
+                        Tagesablauf, das Studieren in einer fremden Sprache und die Suche nach einer Wohnung.</p>
+                    <p>Doch bald lernte ich, den Alltag zu organisieren. Ich fand Mitbewohner in einer Wohngemeinschaft,
+                        entdeckte günstige Cafés zum Lernen und schloss Freundschaften mit Studierenden aus
+                        verschiedenen Ländern. Wichtiger als die Vorlesungen war für mich die Praxis: Sprachcafés,
+                        Tandempartner und die Arbeit in einem kleinen Café halfen mir, die Sprache anzuwenden.</p>
+                    <p>Ein unerwarteter Vorteil war, dass ich mich beruflich besser orientieren konnte. Durch Praktika
+                        in lokalen Firmen bekam ich Einblicke in unterschiedliche Arbeitskulturen. Nicht alles war
+                        einfach: Bürokratische Hürden, Wohnungen mit kurzer Laufzeit und Heimweh belasteten mich
+                        zwischendurch. Aber die Erfahrung hat meinen Horizont erweitert und mich selbstständiger
+                        gemacht.</p>
+                    <p>Heute reise ich regelmäßig, nehme an internationalen Projekten teil und nutze die Fähigkeiten,
+                        die ich damals lernte, in meinem Beruf. Für jeden, der ernsthaft eine Sprache lernen will, ist
+                        ein Auslandaufenthalt eine intensive, aber lohnende Herausforderung.</p>
+                </div>
 
-  // DOM helpers
-  const $ = s => document.querySelector(s);
-  const $$ = s => Array.from(document.querySelectorAll(s));
+                <div id="readingQuestions">
+                    <!-- سيتم توليد 20 سؤالًا هنا: 10 MCQ (صعبة) + 10 مقالية قصيرة -->
+                </div>
 
-  // State
-  window._state = {reading:0, grammar:0, writing:0, report:null};
+                <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                    <button class="btn" id="gradeReadBtn">Lesen bewerten</button>
+                    <button class="btn secondary" data-goto="grammatik">Weiter: Grammatik</button>
+                    <div id="lesenResult" class="muted" style="margin-left:12px">Punkte: - / 40</div>
+                </div>
+            </section>
 
-  // --- Questions data (ONLY question texts & options visible) ---
-  // Reading MCQ (10)
-  const readingMCQ = [
-    {q: "Warum ging der Erzähler ins Ausland?", opt: ["Um Urlaub zu machen", "Für ein Semester und Sprachkurs", "Um eine Firma zu gründen", "Weil er umziehen musste"]},
-    {q: "Womit konnte der Erzähler schnell Kontakte knüpfen?", opt: ["Nur in der Uni", "Durch Sprachcafés und Tandempartner", "Durch Online-Kurse", "Durch seine Familie"]},
-    {q: "Welcher unerwartete Vorteil wird genannt?", opt: ["Bessere Sprachkenntnisse ausschließlich", "Finanzielle Gewinne", "Berufliche Orientierung durch Praktika", "Keine Probleme mit Bürokratie"]},
-    {q: "Was belastete den Erzähler zwischendurch?", opt: ["Er war immer krank", "Bürokratische Hürden und Heimweh", "Zu viele Freizeitangebote", "Schlechte Sprachkurse"]},
-    {q: "Wie hat der Erzähler Geld verdient?", opt: ["Er hat nicht gearbeitet", "Durch Arbeit in einem kleinen Café", "Als Übersetzer", "Durch Online-Shops"]},
-    {q: "Welche Rolle spielten Mitbewohner?", opt: ["Sie waren hinderlich", "Sie halfen bei der Organisation des Alltags", "Sie waren nur Gäste", "Es gab keine Mitbewohner"]},
-    {q: "Welche Institution bot der Kurs an?", opt: ["Eine Sprachschule und Universität kombiniert", "Nur eine Firma", "Ein Hotel", "Keine Institution"]},
-    {q: "Wie wurde das Studium beschrieben?", opt: ["Als rein theoretisch", "Intensiv und kombiniert mit Vorlesungen", "Sehr locker", "Nicht erwähnt"]},
-    {q: "Was ist das Hauptthema des Textes?", opt: ["Ein Roman", "Erfahrungsbericht über Auslandsaufenthalt", "Ein Werbetext", "Eine Stellenanzeige"]},
-    {q: "Was ist das Fazit des Autors?", opt: ["Ausland ist unnötig", "Ausland ist eine lohnende Herausforderung", "Nur für reiche Leute", "Es ist gefährlich zu reisen"]},
-  ];
+            <!-- Grammatik -->
+            <section id="grammatik" class="card" aria-labelledby="grammatikTitle" style="margin-top:16px;display:none">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <div>
+                        <h2 id="grammatikTitle">Teil 2 — Grammatik & Wortschatz (29 Fragen)</h2>
+                        <div class="muted">29 MCQs — jede Frage = 2 Punkte.</div>
+                    </div>
+                    <div class="status">
+                        <div class="muted">Status:</div>
+                        <div id="gramStatus" class="muted">Nicht bewertet</div>
+                    </div>
+                </div>
 
-  // Reading free-text prompts (10) — short answers expected; we will grade heuristically
-  const readingFree = [
-    "Nenne zwei Aktivitäten, die dem Erzähler beim Sprachlernen halfen.",
-    "Wie beeinflusste der Auslandsaufenthalt die berufliche Orientierung?",
-    "Welche praktischen Schwierigkeiten werden erwähnt?",
-    "Beschreibe, wie der Alltag des Erzählers nach einiger Zeit aussah.",
-    "Warum war Praxis laut dem Autor wichtiger als Vorlesungen?",
-    "Nenne eine konkrete Aktivität, durch die der Erzähler die Sprache anwandte.",
-    "Wie wirkt sich ein Auslandsaufenthalt langfristig laut dem Text aus?",
-    "Was half dem Erzähler, Mitbewohner zu finden? (kurz)",
-    "Wie hat der Erzähler sein soziales Netzwerk erweitert?",
-    "Welche Empfehlung gibt der Autor für Lernende, die ernsthaft eine Sprache lernen wollen?"
-  ];
+                <div id="grammarQuestions" style="margin-top:12px">
+                    <!-- توليد أسئلة القواعد هنا -->
+                </div>
 
-  // Grammar MCQ (29) — varied topics
-  const grammarMCQ = [
-    {q:"Welches Verb ist trennbar?","opt":["verstehen","aufstehen","studieren","sein"]},
-    {q:"Präsens: Er ___ gestern lange gearbeitet.", "opt":["hat","arbeitete","arbeitet","arbeiten"]},
-    {q:"Perfekt: Ich ___ das Buch gelesen.", "opt":["habe","hatte","bin","werde"]},
-    {q:"Wähle die richtige Präposition: Ich freue mich ___ das Praktikum.", "opt":["an","über","mit","für"]},
-    {q:"Welcher Satz ist korrekt für Nebensatz mit 'weil'?", "opt":["Ich bleibe, weil ich müde bin.","Weil ich müde bin ich bleibe.","Ich bleibe, ich bin müde weil.","Weil ich bin müde, ich bleibe."]},
-    {q:"Welche Form ist Possessiv: 'mein' in Plural (Nominativ)?", "opt":["meine","mein","meiner","meinen"]},
-    {q:"Wähle die richtige Akkusativform: 'Ich suche ___ Zimmer.'", "opt":["ein","eine","einen","einem"]},
-    {q:"Welches Verb verlangt Dativ: 'helfen' – Beispiel: Ich helfe ___ Freund.", "opt":["der","den","dem","des"]},
-    {q:"Präteritum: Gestern ___ es stark.", "opt":["regnet","regnete","hat geregnet","wird regnen"]},
-    {q:"Adjektivendung: 'ein ___ Tag' (schön, Nominativ, Maskulin)", "opt":["schöner","schönen","schönes","schönerer"]},
-    {q:"Trennbares Verb — richtige Präsensform: 'aufstehen' mit 'er'?", "opt":["er aufsteht","er steht auf","er stehtauf","erauf steht"]},
-    {q:"Welche Konjunktion verlangt Nebensatzstellung?", "opt":["und","aber","weil","oder"]},
-    {q:"Welches ist ein Reflexivverb im Deutschen?", "opt":["sich erinnern","erinnern","erinnert","gedenken"]},
-    {q:"Richtiges Pronomen: 'Das ist das Buch von ___.'", "opt":["ich","mir","mich","mein"]},
-    {q:"Welcher Satz ist Perfekt korrekt?", "opt":["Ich bin gegangen.","Ich habe gegangen.","Ich ging haben.","Ich habe gegehen."]},
-    {q:"Welches Wort ist Substantiv?", "opt":["laufen","Laufen","läuft","gelaufen"]},
-    {q:"Wahl: 'obwohl' leitet ...", "opt":["Hauptsatz","Infinitivsatz","Nebensatz","Adverbialsatz"]},
-    {q:"Richtig: 'Er hat keine Zeit, ___ er viel arbeitet.'", "opt":["weil","wenn","obwohl","denn"]},
-    {q:"Setze: Ich interessiere mich ___ Musik.", "opt":["für","an","mit","über"]},
-    {q:"Welches ist korrekte Reihenfolge: Nebensatz mit Modalverb?", "opt":["..., dass er kann gehen.","..., dass er gehen kann.","..., dass kann er gehen.","..., dass gehen er kann."]},
-    {q:"Welches ist untrennbares Verb?", "opt":["bekommen","anfangen","zurückkommen","mitkommen"]},
-    {q:"Pronomen-Objekt: 'Er gibt ___ das Buch.'", "opt":["mir","ich","mich","mein"]},
-    {q:"Richtiges Partizip II von 'finden'?", "opt":["gefunden","gefundenen","gefand","gefundenes"]},
-    {q:"Welche Präposition verlangt Akkusativ?", "opt":["aus","mit","für","bei"]},
-    {q:"Wortstellung: 'Heute habe ich das Examen bestanden.' — Welche ist richtig?", "opt":["Heute habe ich das Examen bestanden.","Heute ich habe das Examen bestanden.","Heute habe das Examen ich bestanden.","Heute habe ich bestanden das Examen."]},
-    {q:"Adjektivendung: 'mit einem ___ Ergebnis' (gut, Dativ, Neutrum?)", "opt":["guten","gute","guter","gutem"]},
-    {q:"Wähle richtige Verbform: 'Wenn ich Zeit ___, komme ich.'", "opt":["habe","hätte","hatte","haben"]},
-    {q:"Welches ist korrekte Form: 'Er fragte, ob ___ kommen.'", "opt":["sie kann","sie kommen kann","kann sie kommen","sie kann kommen"]},
-  ];
+                <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                    <button class="btn" id="gradeGramBtn">Grammatik bewerten</button>
+                    <button class="btn secondary" data-goto="schreiben">Weiter: Schreiben</button>
+                    <div id="gramResult" class="muted" style="margin-left:12px">Punkte: - / 58</div>
+                </div>
+            </section>
 
-  // --- Correct answers (kept inside closure only) ---
-  // We'll compute SHA-256 hashes for each correct letter choice ('a'..'d') using a pepper,
-  // and store only hashes in global object for later comparison.
-  const correctHashes = { readingMCQ: [], grammarMCQ: [], readingFree: [], writing: null };
+            <!-- Schreiben -->
+            <section id="schreiben" class="card" aria-labelledby="schreibenTitle" style="margin-top:16px;display:none">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <div>
+                        <h2 id="schreibenTitle">Teil 3 — Schreiben (1 Aufgabe)</h2>
+                        <div class="muted">Schreibe eine kurze E-Mail (ca. 80–120 Wörter). Aufgabe = 2 Punkte.</div>
+                    </div>
+                    <div class="status">
+                        <div class="muted">Status:</div>
+                        <div id="writeStatus" class="muted">Nicht bewertet</div>
+                    </div>
+                </div>
 
-  // Utility: SHA-256 hex
-  async function sha256Hex(msg){
-    const enc = new TextEncoder();
-    const data = enc.encode(msg);
-    const h = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
+                <div style="margin-top:12px">
+                    <p class="muted"><strong>Aufgabe:</strong> Du musst dich bei einer Sprachschule über einen
+                        Intensivkurs informieren. Schreibe eine höfliche E-Mail: Stelle dich kurz vor, nenne deine
+                        Ziele, frage nach Terminen und Kosten. (80–120 Wörter)</p>
+                    <textarea id="essay" placeholder="Sehr geehrte Damen und Herren, ..."></textarea>
+                </div>
 
-  (async function initHashes(){
-    // The plaintext correct answers exist only in this IIFE scope.
-    const pepper = '§A2Pro2025!'; // small pepper to complicate offline reversing
-    // Real answers (letters) — NOT exposed outside this closure
-    const answersReadingMCQ = ['b','b','c','b','b','b','a','b','b','b']; // length 10
-    const answersGrammarMCQ = [
-      'b','b','a','b','a','a','c','c','b','a','b','c','a','c','a','b','c','d','a','b','a','a','a','c','c','a','a','a','b'
-    ]; // length 29
-    // For free-text we don't store single correct letter; we will grade heuristically.
-    // Writing: no single correct answer; use heuristic scoring.
+                <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                    <button class="btn" id="gradeWriteBtn">Schreiben bewerten</button>
+                    <button class="btn secondary" data-goto="ergebnis">Zum Ergebnis</button>
+                    <div id="writeResult" class="muted" style="margin-left:12px">Punkte: - / 2</div>
+                </div>
+                <div id="writingHints" class="muted" style="margin-top:10px"></div>
+            </section>
 
-    // compute hashes
-    for(let i=0;i<answersReadingMCQ.length;i++){
-      correctHashes.readingMCQ[i] = await sha256Hex(answersReadingMCQ[i] + pepper);
-    }
-    for(let i=0;i<answersGrammarMCQ.length;i++){
-      correctHashes.grammarMCQ[i] = await sha256Hex(answersGrammarMCQ[i] + pepper);
-    }
-    // readingFree and writing remain for heuristics
-  })();
+            <!-- Ergebnis -->
+            <section id="ergebnis" class="card" aria-labelledby="ergebnisTitle" style="margin-top:16px;display:none">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                    <div>
+                        <h2 id="ergebnisTitle">Ergebnis & Zertifikat</h2>
+                        <div class="muted">Gesamtpunkte (100). Zertifikat auf Deutsch.</div>
+                    </div>
+                    <div>
+                        <label class="muted">Name (für Zertifikat)</label>
+                        <input id="certName" class="cert-input" placeholder="Vorname Nachname" />
+                    </div>
+                </div>
+
+                <div style="margin-top:12px;display:flex;gap:14px;align-items:center">
+                    <div
+                        style="flex:0 0 220px;padding:12px;border-radius:8px;background:#f3fbf6;border:1px solid rgba(8,48,38,0.04)">
+                        <div class="muted">Gesamt</div>
+                        <div id="scorePct" class="score-big">0 / 100</div>
+                        <div id="scoreEval" class="muted">Bewertung: -</div>
+                    </div>
+                    <div style="flex:1">
+                        <div id="scoreBreakdown" class="muted">Lesen: - / 40 · Grammatik: - / 58 · Schreiben: - / 2
+                        </div>
+                        <div style="margin-top:12px">
+                            <div id="correctCount" class="muted">✅ Richtig: 0</div>
+                            <div id="wrongCount" class="muted">❌ Falsch: 0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+                    <button class="btn" id="downloadCert">Zertifikat herunterladen (PDF)</button>
+                    <button class="btn secondary" id="downloadReport">Ergebnis (JSON)</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- jsPDF CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        /*****************************************************************
+         * A1 Vollversion — 50 Fragen
+         * - Lesen: 20 (10 MCQ schwer + 10 Freitext kurz) → 20 Fragen x 2 Punkte = 40
+         * - Grammatik: 29 MCQ → 29 x 2 = 58
+         * - Schreiben: 1 Aufgabe → 1 x 2 = 2
+         * Gesamt = 100 Punkte
+         *
+         * Sicherheitsprinzip:
+         * - الإجابات الصحيحة مخفية داخل closure وتُحوَّل إلى SHA-256 فقط.
+         * - عند التصحيح نقارن التجزئات ولا نعرض الحلول.
+         *****************************************************************/
+
+        // DOM helpers
+        const $ = s => document.querySelector(s);
+        const $$ = s => Array.from(document.querySelectorAll(s));
+
+        // State
+        window._state = { reading: 0, grammar: 0, writing: 0, report: null };
+
+        // --- Questions data (ONLY question texts & options visible) ---
+        // Reading MCQ (10)
+        const readingMCQ = [
+            { q: "Warum ging der Erzähler ins Ausland?", opt: ["Um Urlaub zu machen", "Für ein Semester und Sprachkurs", "Um eine Firma zu gründen", "Weil er umziehen musste"] },
+            { q: "Womit konnte der Erzähler schnell Kontakte knüpfen?", opt: ["Nur in der Uni", "Durch Sprachcafés und Tandempartner", "Durch Online-Kurse", "Durch seine Familie"] },
+            { q: "Welcher unerwartete Vorteil wird genannt?", opt: ["Bessere Sprachkenntnisse ausschließlich", "Finanzielle Gewinne", "Berufliche Orientierung durch Praktika", "Keine Probleme mit Bürokratie"] },
+            { q: "Was belastete den Erzähler zwischendurch?", opt: ["Er war immer krank", "Bürokratische Hürden und Heimweh", "Zu viele Freizeitangebote", "Schlechte Sprachkurse"] },
+            { q: "Wie hat der Erzähler Geld verdient?", opt: ["Er hat nicht gearbeitet", "Durch Arbeit in einem kleinen Café", "Als Übersetzer", "Durch Online-Shops"] },
+            { q: "Welche Rolle spielten Mitbewohner?", opt: ["Sie waren hinderlich", "Sie halfen bei der Organisation des Alltags", "Sie waren nur Gäste", "Es gab keine Mitbewohner"] },
+            { q: "Welche Institution bot der Kurs an?", opt: ["Eine Sprachschule und Universität kombiniert", "Nur eine Firma", "Ein Hotel", "Keine Institution"] },
+            { q: "Wie wurde das Studium beschrieben?", opt: ["Als rein theoretisch", "Intensiv und kombiniert mit Vorlesungen", "Sehr locker", "Nicht erwähnt"] },
+            { q: "Was ist das Hauptthema des Textes?", opt: ["Ein Roman", "Erfahrungsbericht über Auslandsaufenthalt", "Ein Werbetext", "Eine Stellenanzeige"] },
+            { q: "Was ist das Fazit des Autors?", opt: ["Ausland ist unnötig", "Ausland ist eine lohnende Herausforderung", "Nur für reiche Leute", "Es ist gefährlich zu reisen"] },
+        ];
+
+        // Reading free-text prompts (10) — short answers expected; we will grade heuristically
+        const readingFree = [
+            "Nenne zwei Aktivitäten, die dem Erzähler beim Sprachlernen halfen.",
+            "Wie beeinflusste der Auslandsaufenthalt die berufliche Orientierung?",
+            "Welche praktischen Schwierigkeiten werden erwähnt?",
+            "Beschreibe, wie der Alltag des Erzählers nach einiger Zeit aussah.",
+            "Warum war Praxis laut dem Autor wichtiger als Vorlesungen?",
+            "Nenne eine konkrete Aktivität, durch die der Erzähler die Sprache anwandte.",
+            "Wie wirkt sich ein Auslandsaufenthalt langfristig laut dem Text aus?",
+            "Was half dem Erzähler, Mitbewohner zu finden? (kurz)",
+            "Wie hat der Erzähler sein soziales Netzwerk erweitert?",
+            "Welche Empfehlung gibt der Autor für Lernende, die ernsthaft eine Sprache lernen wollen?"
+        ];
+
+        // Grammar MCQ (29) — varied topics
+        const grammarMCQ = [
+            { q: "Welches Verb ist trennbar?", "opt": ["verstehen", "aufstehen", "studieren", "sein"] },
+            { q: "Präsens: Er ___ gestern lange gearbeitet.", "opt": ["hat", "arbeitete", "arbeitet", "arbeiten"] },
+            { q: "Perfekt: Ich ___ das Buch gelesen.", "opt": ["habe", "hatte", "bin", "werde"] },
+            { q: "Wähle die richtige Präposition: Ich freue mich ___ das Praktikum.", "opt": ["an", "über", "mit", "für"] },
+            { q: "Welcher Satz ist korrekt für Nebensatz mit 'weil'?", "opt": ["Ich bleibe, weil ich müde bin.", "Weil ich müde bin ich bleibe.", "Ich bleibe, ich bin müde weil.", "Weil ich bin müde, ich bleibe."] },
+            { q: "Welche Form ist Possessiv: 'mein' in Plural (Nominativ)?", "opt": ["meine", "mein", "meiner", "meinen"] },
+            { q: "Wähle die richtige Akkusativform: 'Ich suche ___ Zimmer.'", "opt": ["ein", "eine", "einen", "einem"] },
+            { q: "Welches Verb verlangt Dativ: 'helfen' – Beispiel: Ich helfe ___ Freund.", "opt": ["der", "den", "dem", "des"] },
+            { q: "Präteritum: Gestern ___ es stark.", "opt": ["regnet", "regnete", "hat geregnet", "wird regnen"] },
+            { q: "Adjektivendung: 'ein ___ Tag' (schön, Nominativ, Maskulin)", "opt": ["schöner", "schönen", "schönes", "schönerer"] },
+            { q: "Trennbares Verb — richtige Präsensform: 'aufstehen' mit 'er'?", "opt": ["er aufsteht", "er steht auf", "er stehtauf", "erauf steht"] },
+            { q: "Welche Konjunktion verlangt Nebensatzstellung?", "opt": ["und", "aber", "weil", "oder"] },
+            { q: "Welches ist ein Reflexivverb im Deutschen?", "opt": ["sich erinnern", "erinnern", "erinnert", "gedenken"] },
+            { q: "Richtiges Pronomen: 'Das ist das Buch von ___.'", "opt": ["ich", "mir", "mich", "mein"] },
+            { q: "Welcher Satz ist Perfekt korrekt?", "opt": ["Ich bin gegangen.", "Ich habe gegangen.", "Ich ging haben.", "Ich habe gegehen."] },
+            { q: "Welches Wort ist Substantiv?", "opt": ["laufen", "Laufen", "läuft", "gelaufen"] },
+            { q: "Wahl: 'obwohl' leitet ...", "opt": ["Hauptsatz", "Infinitivsatz", "Nebensatz", "Adverbialsatz"] },
+            { q: "Richtig: 'Er hat keine Zeit, ___ er viel arbeitet.'", "opt": ["weil", "wenn", "obwohl", "denn"] },
+            { q: "Setze: Ich interessiere mich ___ Musik.", "opt": ["für", "an", "mit", "über"] },
+            { q: "Welches ist korrekte Reihenfolge: Nebensatz mit Modalverb?", "opt": ["..., dass er kann gehen.", "..., dass er gehen kann.", "..., dass kann er gehen.", "..., dass gehen er kann."] },
+            { q: "Welches ist untrennbares Verb?", "opt": ["bekommen", "anfangen", "zurückkommen", "mitkommen"] },
+            { q: "Pronomen-Objekt: 'Er gibt ___ das Buch.'", "opt": ["mir", "ich", "mich", "mein"] },
+            { q: "Richtiges Partizip II von 'finden'?", "opt": ["gefunden", "gefundenen", "gefand", "gefundenes"] },
+            { q: "Welche Präposition verlangt Akkusativ?", "opt": ["aus", "mit", "für", "bei"] },
+            { q: "Wortstellung: 'Heute habe ich das Examen bestanden.' — Welche ist richtig?", "opt": ["Heute habe ich das Examen bestanden.", "Heute ich habe das Examen bestanden.", "Heute habe das Examen ich bestanden.", "Heute habe ich bestanden das Examen."] },
+            { q: "Adjektivendung: 'mit einem ___ Ergebnis' (gut, Dativ, Neutrum?)", "opt": ["guten", "gute", "guter", "gutem"] },
+            { q: "Wähle richtige Verbform: 'Wenn ich Zeit ___, komme ich.'", "opt": ["habe", "hätte", "hatte", "haben"] },
+            { q: "Welches ist korrekte Form: 'Er fragte, ob ___ kommen.'", "opt": ["sie kann", "sie kommen kann", "kann sie kommen", "sie kann kommen"] },
+        ];
+
+        // --- Correct answers (kept inside closure only) ---
+        // We'll compute SHA-256 hashes for each correct letter choice ('a'..'d') using a pepper,
+        // and store only hashes in global object for later comparison.
+        const correctHashes = { readingMCQ: [], grammarMCQ: [], readingFree: [], writing: null };
+
+        // Utility: SHA-256 hex
+        async function sha256Hex(msg) {
+            const enc = new TextEncoder();
+            const data = enc.encode(msg);
+            const h = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        (async function initHashes() {
+            // The plaintext correct answers exist only in this IIFE scope.
+            const pepper = '§A2Pro2025!'; // small pepper to complicate offline reversing
+            // Real answers (letters) — NOT exposed outside this closure
+            const answersReadingMCQ = ['b', 'b', 'c', 'b', 'b', 'b', 'a', 'b', 'b', 'b']; // length 10
+            const answersGrammarMCQ = [
+                'b', 'b', 'a', 'b', 'a', 'a', 'c', 'c', 'b', 'a', 'b', 'c', 'a', 'c', 'a', 'b', 'c', 'd', 'a', 'b', 'a', 'a', 'a', 'c', 'c', 'a', 'a', 'a', 'b'
+            ]; // length 29
+            // For free-text we don't store single correct letter; we will grade heuristically.
+            // Writing: no single correct answer; use heuristic scoring.
+
+            // compute hashes
+            for (let i = 0; i < answersReadingMCQ.length; i++) {
+                correctHashes.readingMCQ[i] = await sha256Hex(answersReadingMCQ[i] + pepper);
+            }
+            for (let i = 0; i < answersGrammarMCQ.length; i++) {
+                correctHashes.grammarMCQ[i] = await sha256Hex(answersGrammarMCQ[i] + pepper);
+            }
+            // readingFree and writing remain for heuristics
+        })();
 
 
-  // --- Rendering questions ---
-  function renderReading(){
-    const container = document.getElementById('readingQuestions');
-    container.innerHTML = '';
-    // 10 MCQ
-    for(let i=0;i<readingMCQ.length;i++){
-      const idx = i;
-      const div = document.createElement('div');
-      div.className = 'mcq';
-      div.innerHTML = `<div><strong>Frage L${i+1}.</strong> ${readingMCQ[i].q}</div>
+        // --- Rendering questions ---
+        function renderReading() {
+            const container = document.getElementById('readingQuestions');
+            container.innerHTML = '';
+            // 10 MCQ
+            for (let i = 0; i < readingMCQ.length; i++) {
+                const idx = i;
+                const div = document.createElement('div');
+                div.className = 'mcq';
+                div.innerHTML = `<div><strong>Frage L${i + 1}.</strong> ${readingMCQ[i].q}</div>
         <div class="opts" id="rmcq${i}"></div>
         <div class="per-q-status" id="rstatus${i}" aria-live="polite"></div>`;
-      container.appendChild(div);
-      const optsWrap = document.getElementById('rmcq'+i);
-      ['a','b','c','d'].forEach((k,j)=>{
-        const lbl = document.createElement('label');
-        lbl.innerHTML = `<input type="radio" name="rmcq${i}" value="${k}"> ${readingMCQ[i].opt[j]}`;
-        optsWrap.appendChild(lbl);
-      });
-    }
-    // 10 Free-text
-    for(let i=0;i<readingFree.length;i++){
-      const qIdx = readingMCQ.length + i;
-      const div = document.createElement('div');
-      div.className = 'mcq';
-      div.innerHTML = `<div><strong>Frage L${qIdx+1}.</strong> ${readingFree[i]}</div>
+                container.appendChild(div);
+                const optsWrap = document.getElementById('rmcq' + i);
+                ['a', 'b', 'c', 'd'].forEach((k, j) => {
+                    const lbl = document.createElement('label');
+                    lbl.innerHTML = `<input type="radio" name="rmcq${i}" value="${k}"> ${readingMCQ[i].opt[j]}`;
+                    optsWrap.appendChild(lbl);
+                });
+            }
+            // 10 Free-text
+            for (let i = 0; i < readingFree.length; i++) {
+                const qIdx = readingMCQ.length + i;
+                const div = document.createElement('div');
+                div.className = 'mcq';
+                div.innerHTML = `<div><strong>Frage L${qIdx + 1}.</strong> ${readingFree[i]}</div>
         <div style="margin-top:8px"><input type="text" id="rfree${i}" class="short" placeholder="Kurze Antwort (ein Satz)"></div>
         <div class="per-q-status" id="rstatus${qIdx}" aria-live="polite"></div>`;
-      container.appendChild(div);
-    }
-  }
+                container.appendChild(div);
+            }
+        }
 
-  function renderGrammar(){
-    const container = document.getElementById('grammarQuestions');
-    container.innerHTML = '';
-    for(let i=0;i<grammarMCQ.length;i++){
-      const div = document.createElement('div');
-      div.className = 'mcq';
-      div.innerHTML = `<div><strong>Frage G${i+1}.</strong> ${grammarMCQ[i].q}</div>
+        function renderGrammar() {
+            const container = document.getElementById('grammarQuestions');
+            container.innerHTML = '';
+            for (let i = 0; i < grammarMCQ.length; i++) {
+                const div = document.createElement('div');
+                div.className = 'mcq';
+                div.innerHTML = `<div><strong>Frage G${i + 1}.</strong> ${grammarMCQ[i].q}</div>
         <div class="opts" id="gopts${i}"></div>
         <div class="per-q-status" id="gstatus${i}" aria-live="polite"></div>`;
-      container.appendChild(div);
-      const optsWrap = document.getElementById('gopts'+i);
-      ['a','b','c','d'].forEach((k,j)=>{
-        const lbl = document.createElement('label');
-        lbl.innerHTML = `<input type="radio" name="gmcq${i}" value="${k}"> ${grammarMCQ[i].opt[j]}`;
-        optsWrap.appendChild(lbl);
-      });
-    }
-  }
-
-  // Init render
-  renderReading();
-  renderGrammar();
-
-  // Navigation helpers
-  function showSection(id){
-    ['lesen','grammatik','schreiben','ergebnis'].forEach(s=>{
-      const el = document.getElementById(s);
-      if(!el) return;
-      el.style.display = (s===id) ? 'block' : 'none';
-    });
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-
-  // Start button
-  $('#startBtn').addEventListener('click', ()=> {
-    const n = $('#userNameTop').value.trim();
-    if(n) { $('#certName').value = n; $('#userNameTop').value = n; }
-    showSection('lesen');
-  });
-
-  // Grade reading
-  $('#gradeReadBtn').addEventListener('click', async ()=>{
-    $('#lesenStatus').textContent = 'Bewertet...';
-    // Wait until hashes ready
-    await waitForHashes();
-
-    const pepper = '§A2Pro2025!';
-    let score = 0; // out of 40
-    let correctCount = 0;
-    // MCQ grading (10 questions)
-    for(let i=0;i<readingMCQ.length;i++){
-      const sel = document.querySelector(`input[name=rmcq${i}]:checked`);
-      const statusDiv = document.getElementById('rstatus'+i);
-      statusDiv.innerHTML = '';
-      if(sel){
-        const v = sel.value;
-        const h = await sha256Hex(v + pepper);
-        if(correctHashes.readingMCQ[i] && h === correctHashes.readingMCQ[i]){
-          score += 2; correctCount++;
-          statusDiv.appendChild(makeStatus(true));
-        } else {
-          statusDiv.appendChild(makeStatus(false));
+                container.appendChild(div);
+                const optsWrap = document.getElementById('gopts' + i);
+                ['a', 'b', 'c', 'd'].forEach((k, j) => {
+                    const lbl = document.createElement('label');
+                    lbl.innerHTML = `<input type="radio" name="gmcq${i}" value="${k}"> ${grammarMCQ[i].opt[j]}`;
+                    optsWrap.appendChild(lbl);
+                });
+            }
         }
-      } else {
-        // unanswered => wrong
-        statusDiv.appendChild(makeStatus(false));
-      }
-    }
-    // Free-text grading (10 questions) — heuristic: keywords + partial credit
-    const freeKw = [
-      ['sprachcafés','tandem','tandempartner','café'],
-      ['praktika','beruf','orientier'],
-      ['bürokratisch','bürokratie','heimweh','heimweh','wohnung'],
-      ['wohngemeinschaft','mitbewohner','alltag','organisier'],
-      ['praxis','anwenden','praxis wichtiger'],
-      ['café','arbeiten','cafe','arbeit'],
-      ['horizont','selbstständig','langfristig','langfrist'],
-      ['anzeigen','anzeige','mitbewohner','wohngemeinschaft'],
-      ['kontakte','freunde','netzwerk','studierende'],
-      ['auslandsaufenthalt','intensiv','lohnend','empfehl']
-    ];
-    for(let i=0;i<readingFree.length;i++){
-      const val = (document.getElementById('rfree'+i).value||'').toLowerCase();
-      const statusDiv = document.getElementById('rstatus'+(readingMCQ.length+i));
-      statusDiv.innerHTML = '';
-      if(!val){
-        statusDiv.appendChild(makeStatus(false));
-        continue;
-      }
-      const kws = freeKw[i];
-      let found = 0;
-      kws.forEach(k=>{
-        if(val.includes(k)) found++;
-      });
-      // scoring: found >=2 -> full credit (2 pts), 1 -> partial (1 pt), 0 -> 0
-      if(found >= 2){ score += 2; correctCount++; statusDiv.appendChild(makeStatus(true)); }
-      else if(found === 1){ score += 1; statusDiv.appendChild(makePartial()); }
-      else { statusDiv.appendChild(makeStatus(false)); }
-    }
 
-    window._state.reading = score; // 0..40
-    $('#lesenResult').textContent = `Punkte: ${score} / 40`;
-    $('#lesenStatus').textContent = 'Bewertet';
-  });
+        // Init render
+        renderReading();
+        renderGrammar();
 
-  // Grade grammar
-  $('#gradeGramBtn').addEventListener('click', async ()=>{
-    $('#gramStatus').textContent = 'Bewertet...';
-    await waitForHashes();
-    const pepper = '§A2Pro2025!';
-    let score = 0; let correctCount = 0;
-    for(let i=0;i<grammarMCQ.length;i++){
-      const sel = document.querySelector(`input[name=gmcq${i}]:checked`);
-      const statusDiv = document.getElementById('gstatus'+i);
-      statusDiv.innerHTML = '';
-      if(sel){
-        const v = sel.value;
-        const h = await sha256Hex(v + pepper);
-        if(correctHashes.grammarMCQ[i] && h === correctHashes.grammarMCQ[i]){
-          score += 2; correctCount++;
-          statusDiv.appendChild(makeStatus(true));
-        } else {
-          statusDiv.appendChild(makeStatus(false));
+        // Navigation helpers
+        function showSection(id) {
+            ['lesen', 'grammatik', 'schreiben', 'ergebnis'].forEach(s => {
+                const el = document.getElementById(s);
+                if (!el) return;
+                el.style.display = (s === id) ? 'block' : 'none';
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } else {
-        statusDiv.appendChild(makeStatus(false));
-      }
-    }
-    window._state.grammar = score; // 0..58
-    $('#gramResult').textContent = `Punkte: ${score} / 58`;
-    $('#gramStatus').textContent = 'Bewertet';
-  });
 
-  // Grade writing
-  $('#gradeWriteBtn').addEventListener('click', ()=>{
-    $('#writeStatus').textContent = 'Bewertet...';
-    const essay = ($('#essay').value||'').trim();
-    const sentences = essay ? essay.split(/(?<=[.!?])\s+/).filter(s=>s.trim().length>0) : [];
-    const sentCount = sentences.length;
-    const words = essay ? essay.split(/\s+/).filter(Boolean).length : 0;
+        // Start button
+        $('#startBtn').addEventListener('click', () => {
+            const n = $('#userNameTop').value.trim();
+            if (n) { $('#certName').value = n; $('#userNameTop').value = n; }
+            showSection('lesen');
+        });
 
-    // heuristic scoring (0..2)
-    let pts = 0;
-    // content: mentions purpose, dates/costs/questions → partial
-    const contentKw = ['intensiv','termin','kosten','meldung','interess','kurs','inform','ziele','termine'];
-    const foundContent = contentKw.filter(k => essay.toLowerCase().includes(k)).length;
-    if(foundContent >= 2 && words >= 60) pts = 2;
-    else if(foundContent >=1 && words >= 40) pts = 1;
-    else pts = 0;
+        // Grade reading
+        $('#gradeReadBtn').addEventListener('click', async () => {
+            $('#lesenStatus').textContent = 'Bewertet...';
+            // Wait until hashes ready
+            await waitForHashes();
 
-    window._state.writing = pts;
-    $('#writeResult').textContent = `Punkte: ${pts} / 2`;
-    // Hints (general, no answer reveal)
-    const hints = [];
-    if(words < 60) hints.push('Versuche 80–120 Wörter für vollständige Darstellung.');
-    if(pts < 2) hints.push('Formuliere kurz Zweck, Ziel und Frage nach Terminen/Kosten.');
-    $('#writingHints').textContent = hints.join(' • ');
-    $('#writeStatus').textContent = 'Bewertet';
-  });
+            const pepper = '§A2Pro2025!';
+            let score = 0; // out of 40
+            let correctCount = 0;
+            // MCQ grading (10 questions)
+            for (let i = 0; i < readingMCQ.length; i++) {
+                const sel = document.querySelector(`input[name=rmcq${i}]:checked`);
+                const statusDiv = document.getElementById('rstatus' + i);
+                statusDiv.innerHTML = '';
+                if (sel) {
+                    const v = sel.value;
+                    const h = await sha256Hex(v + pepper);
+                    if (correctHashes.readingMCQ[i] && h === correctHashes.readingMCQ[i]) {
+                        score += 2; correctCount++;
+                        statusDiv.appendChild(makeStatus(true));
+                    } else {
+                        statusDiv.appendChild(makeStatus(false));
+                    }
+                } else {
+                    // unanswered => wrong
+                    statusDiv.appendChild(makeStatus(false));
+                }
+            }
+            // Free-text grading (10 questions) — heuristic: keywords + partial credit
+            const freeKw = [
+                ['sprachcafés', 'tandem', 'tandempartner', 'café'],
+                ['praktika', 'beruf', 'orientier'],
+                ['bürokratisch', 'bürokratie', 'heimweh', 'heimweh', 'wohnung'],
+                ['wohngemeinschaft', 'mitbewohner', 'alltag', 'organisier'],
+                ['praxis', 'anwenden', 'praxis wichtiger'],
+                ['café', 'arbeiten', 'cafe', 'arbeit'],
+                ['horizont', 'selbstständig', 'langfristig', 'langfrist'],
+                ['anzeigen', 'anzeige', 'mitbewohner', 'wohngemeinschaft'],
+                ['kontakte', 'freunde', 'netzwerk', 'studierende'],
+                ['auslandsaufenthalt', 'intensiv', 'lohnend', 'empfehl']
+            ];
+            for (let i = 0; i < readingFree.length; i++) {
+                const val = (document.getElementById('rfree' + i).value || '').toLowerCase();
+                const statusDiv = document.getElementById('rstatus' + (readingMCQ.length + i));
+                statusDiv.innerHTML = '';
+                if (!val) {
+                    statusDiv.appendChild(makeStatus(false));
+                    continue;
+                }
+                const kws = freeKw[i];
+                let found = 0;
+                kws.forEach(k => {
+                    if (val.includes(k)) found++;
+                });
+                // scoring: found >=2 -> full credit (2 pts), 1 -> partial (1 pt), 0 -> 0
+                if (found >= 2) { score += 2; correctCount++; statusDiv.appendChild(makeStatus(true)); }
+                else if (found === 1) { score += 1; statusDiv.appendChild(makePartial()); }
+                else { statusDiv.appendChild(makeStatus(false)); }
+            }
 
-  // Compute final and show certificate page
-  $$('[data-goto]').forEach(b=> b.addEventListener('click', async (e)=>{
-    const target = e.currentTarget.dataset.goto;
-    if(target === 'ergebnis'){
-      // grade all if not yet
-      await $('#gradeReadBtn').click();
-      await $('#gradeGramBtn').click();
-      $('#gradeWriteBtn').click();
-      setTimeout(()=>{ // slight delay to ensure async hashes done
-        computeResultAndShow();
-        showSection('ergebnis');
-      }, 600);
-    } else {
-      showSection(target);
-    }
-  }));
+            window._state.reading = score; // 0..40
+            $('#lesenResult').textContent = `Punkte: ${score} / 40`;
+            $('#lesenStatus').textContent = 'Bewertet';
+        });
 
-  // Manual "Zum Ergebnis" via top control
-  // also allow direct navigation after grading
-  // compute and show
-  function computeResultAndShow(){
-    const r = window._state.reading || 0;
-    const g = window._state.grammar || 0;
-    const w = window._state.writing || 0;
-    const total = r + g + w; // 0..100
-    const pct = total; // already in 0..100
-    let evalText = 'Nicht bestanden';
-    if(pct >= 80) evalText = 'Sehr gut — A2 (Bestanden)';
-    else if(pct >= 60) evalText = 'Bestanden (A2)';
-    else evalText = 'Nicht bestanden';
+        // Grade grammar
+        $('#gradeGramBtn').addEventListener('click', async () => {
+            $('#gramStatus').textContent = 'Bewertet...';
+            await waitForHashes();
+            const pepper = '§A2Pro2025!';
+            let score = 0; let correctCount = 0;
+            for (let i = 0; i < grammarMCQ.length; i++) {
+                const sel = document.querySelector(`input[name=gmcq${i}]:checked`);
+                const statusDiv = document.getElementById('gstatus' + i);
+                statusDiv.innerHTML = '';
+                if (sel) {
+                    const v = sel.value;
+                    const h = await sha256Hex(v + pepper);
+                    if (correctHashes.grammarMCQ[i] && h === correctHashes.grammarMCQ[i]) {
+                        score += 2; correctCount++;
+                        statusDiv.appendChild(makeStatus(true));
+                    } else {
+                        statusDiv.appendChild(makeStatus(false));
+                    }
+                } else {
+                    statusDiv.appendChild(makeStatus(false));
+                }
+            }
+            window._state.grammar = score; // 0..58
+            $('#gramResult').textContent = `Punkte: ${score} / 58`;
+            $('#gramStatus').textContent = 'Bewertet';
+        });
 
-    window._state.report = {
-      timestamp: new Date().toISOString(),
-      reading: r, grammar: g, writing: w, total, pct, evalText
-    };
+        // Grade writing
+        $('#gradeWriteBtn').addEventListener('click', () => {
+            $('#writeStatus').textContent = 'Bewertet...';
+            const essay = ($('#essay').value || '').trim();
+            const sentences = essay ? essay.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 0) : [];
+            const sentCount = sentences.length;
+            const words = essay ? essay.split(/\s+/).filter(Boolean).length : 0;
 
-    $('#scorePct').textContent = `${total} / 100`;
-    $('#scoreEval').textContent = `Bewertung: ${evalText}`;
-    $('#scoreBreakdown').textContent = `Lesen: ${r} / 40 · Grammatik: ${g} / 58 · Schreiben: ${w} / 2`;
+            // heuristic scoring (0..2)
+            let pts = 0;
+            // content: mentions purpose, dates/costs/questions → partial
+            const contentKw = ['intensiv', 'termin', 'kosten', 'meldung', 'interess', 'kurs', 'inform', 'ziele', 'termine'];
+            const foundContent = contentKw.filter(k => essay.toLowerCase().includes(k)).length;
+            if (foundContent >= 2 && words >= 60) pts = 2;
+            else if (foundContent >= 1 && words >= 40) pts = 1;
+            else pts = 0;
 
-    // Count correct/wrong approx:
-    const correctFromReading = Math.round((r/40)*20); // out of 20 reading items
-    const correctFromGrammar = Math.round((g/58)*29);
-    const correctFromWrite = w === 2 ? 1 : 0;
-    const totalCorrect = correctFromReading + correctFromGrammar + correctFromWrite;
-    const totalWrong = 50 - totalCorrect;
-    $('#correctCount').textContent = `✅ Richtig: ${totalCorrect}`;
-    $('#wrongCount').textContent = `❌ Falsch: ${totalWrong}`;
-  }
+            window._state.writing = pts;
+            $('#writeResult').textContent = `Punkte: ${pts} / 2`;
+            // Hints (general, no answer reveal)
+            const hints = [];
+            if (words < 60) hints.push('Versuche 80–120 Wörter für vollständige Darstellung.');
+            if (pts < 2) hints.push('Formuliere kurz Zweck, Ziel und Frage nach Terminen/Kosten.');
+            $('#writingHints').textContent = hints.join(' • ');
+            $('#writeStatus').textContent = 'Bewertet';
+        });
 
-  // Download certificate (German)
-  document.getElementById('downloadCert').addEventListener('click', async ()=>{
-    if(!window._state.report) computeResultAndShow();
-    const name = ($('#certName').value || $('#userNameTop').value || 'Max Mustermann').trim();
-    const report = window._state.report;
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({unit:'pt', format:'a4'});
-    const date = new Date().toLocaleDateString('de-DE');
+        // Compute final and show certificate page
+        $$('[data-goto]').forEach(b => b.addEventListener('click', async (e) => {
+            const target = e.currentTarget.dataset.goto;
+            if (target === 'ergebnis') {
+                // grade all if not yet
+                await $('#gradeReadBtn').click();
+                await $('#gradeGramBtn').click();
+                $('#gradeWriteBtn').click();
+                setTimeout(() => { // slight delay to ensure async hashes done
+                    computeResultAndShow();
+                    showSection('ergebnis');
+                }, 600);
+            } else {
+                showSection(target);
+            }
+        }));
 
-    // Header
-    doc.setFillColor(27,107,74);
-    doc.rect(0,0,595,80,'F');
-    doc.setFontSize(24);
-    doc.setTextColor(255,255,255);
-    doc.text('Sprachzertifikat', 40, 46);
-    doc.setFontSize(12);
-    doc.text('Interaktiver A2 Test — Ergebnis', 40, 66);
+        // Manual "Zum Ergebnis" via top control
+        // also allow direct navigation after grading
+        // compute and show
+        function computeResultAndShow() {
+            const r = window._state.reading || 0;
+            const g = window._state.grammar || 0;
+            const w = window._state.writing || 0;
+            const total = r + g + w; // 0..100
+            const pct = total; // already in 0..100
+            let evalText = 'Nicht bestanden';
+            if (pct >= 80) evalText = 'Sehr gut — A1 (Bestanden)';
+            else if (pct >= 60) evalText = 'Bestanden (A1)';
+            else evalText = 'Nicht bestanden';
 
-    // Body
-    doc.setTextColor(10,30,20);
-    doc.setFontSize(12);
-    doc.text(`Hiermit wird bescheinigt, dass`, 40, 120);
-    doc.setFontSize(18);
-    doc.text(name, 40, 150);
-    doc.setFontSize(12);
-    doc.text(`am ${date} das folgende Ergebnis erreicht hat:`, 40, 175);
-    doc.setFontSize(14);
-    doc.text(`Gesamtpunktzahl: ${report.total} / 100  —  ${report.pct}%`, 40, 205);
-    doc.text(`Beurteilung: ${report.evalText}`, 40, 225);
+            window._state.report = {
+                timestamp: new Date().toISOString(),
+                reading: r, grammar: g, writing: w, total, pct, evalText
+            };
 
-    doc.setFontSize(11);
-    doc.text('Details:', 40, 255);
-    doc.text(`Lesen: ${report.reading} / 40`, 60, 275);
-    doc.text(`Grammatik: ${report.grammar} / 58`, 60, 295);
-    doc.text(`Schreiben: ${report.writing} / 2`, 60, 315);
+            $('#scorePct').textContent = `${total} / 100`;
+            $('#scoreEval').textContent = `Bewertung: ${evalText}`;
+            $('#scoreBreakdown').textContent = `Lesen: ${r} / 40 · Grammatik: ${g} / 58 · Schreiben: ${w} / 2`;
 
-    doc.text('Institut: Interaktive Sprachprüfung', 40, 360);
-    doc.text('Unterschrift:', 40, 400);
-    doc.line(130,398,320,398);
+            // Count correct/wrong approx:
+            const correctFromReading = Math.round((r / 40) * 20); // out of 20 reading items
+            const correctFromGrammar = Math.round((g / 58) * 29);
+            const correctFromWrite = w === 2 ? 1 : 0;
+            const totalCorrect = correctFromReading + correctFromGrammar + correctFromWrite;
+            const totalWrong = 50 - totalCorrect;
+            $('#correctCount').textContent = `✅ Richtig: ${totalCorrect}`;
+            $('#wrongCount').textContent = `❌ Falsch: ${totalWrong}`;
+        }
 
-    doc.setFontSize(9);
-    doc.text('Hinweis: Dieses Zertifikat basiert auf einer automatisierten Bewertung. Es enthält keine vollständigen individuellen Korrekturen.', 40, 440);
+        // Download certificate (German)
+        document.getElementById('downloadCert').addEventListener('click', async () => {
+            if (!window._state.report) computeResultAndShow();
+            const name = ($('#certName').value || $('#userNameTop').value || 'Max Mustermann').trim();
+            const report = window._state.report;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+            const date = new Date().toLocaleDateString('de-DE');
 
-    doc.save(`${name.replace(/\s+/g,'_')}_A2_Zertifikat.pdf`);
-  });
+            // Header
+            doc.setFillColor(27, 107, 74);
+            doc.rect(0, 0, 595, 80, 'F');
+            doc.setFontSize(24);
+            doc.setTextColor(255, 255, 255);
+            doc.text('Sprachzertifikat', 40, 46);
+            doc.setFontSize(12);
+            doc.text('Interaktiver A1 Test — Ergebnis', 40, 66);
 
-  // Download JSON report
-  $('#downloadReport').addEventListener('click', ()=>{
-    if(!window._state.report) computeResultAndShow();
-    const data = JSON.stringify(window._state.report || {}, null, 2);
-    const blob = new Blob([data], {type:'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'a2_test_report.json'; a.click();
-    URL.revokeObjectURL(url);
-  });
+            // Body
+            doc.setTextColor(10, 30, 20);
+            doc.setFontSize(12);
+            doc.text(`Hiermit wird bescheinigt, dass`, 40, 120);
+            doc.setFontSize(18);
+            doc.text(name, 40, 150);
+            doc.setFontSize(12);
+            doc.text(`am ${date} das folgende Ergebnis erreicht hat:`, 40, 175);
+            doc.setFontSize(14);
+            doc.text(`Gesamtpunktzahl: ${report.total} / 100  —  ${report.pct}%`, 40, 205);
+            doc.text(`Beurteilung: ${report.evalText}`, 40, 225);
 
-  // Helpers: status icons
-  function makeStatus(ok){
-    const sp = document.createElement('div');
-    sp.className = 'q-status';
-    const ic = document.createElement('div');
-    ic.className = 'icon';
-    ic.textContent = ok ? '✅' : '❌';
-    const txt = document.createElement('div');
-    txt.textContent = ok ? 'Richtig' : 'Falsch';
-    sp.appendChild(ic); sp.appendChild(txt);
-    return sp;
-  }
-  function makePartial(){
-    const sp = document.createElement('div');
-    sp.className = 'q-status';
-    const ic = document.createElement('div');
-    ic.className = 'icon';
-    ic.textContent = '⚠️';
-    const txt = document.createElement('div');
-    txt.textContent = 'Teilweise';
-    sp.appendChild(ic); sp.appendChild(txt);
-    return sp;
-  }
+            doc.setFontSize(11);
+            doc.text('Details:', 40, 255);
+            doc.text(`Lesen: ${report.reading} / 40`, 60, 275);
+            doc.text(`Grammatik: ${report.grammar} / 58`, 60, 295);
+            doc.text(`Schreiben: ${report.writing} / 2`, 60, 315);
 
-  // Wait until hashes computed
-  async function waitForHashes(){
-    // spin until arrays have lengths
-    while(correctHashes.readingMCQ.length < readingMCQ.length || correctHashes.grammarMCQ.length < grammarMCQ.length){
-      await new Promise(r => setTimeout(r, 80));
-    }
-  }
+            doc.text('Institut: Interaktive Sprachprüfung', 40, 360);
+            doc.text('Unterschrift:', 40, 400);
+            doc.line(130, 398, 320, 398);
 
-  // Accessibility: pressing Ctrl+Enter on essay grades writing
-  $('#essay').addEventListener('keydown', (e)=>{
-    if(e.ctrlKey && e.key === 'Enter') $('#gradeWriteBtn').click();
-  });
+            doc.setFontSize(9);
+            doc.text('Hinweis: Dieses Zertifikat basiert auf einer automatisierten Bewertung. Es enthält keine vollständigen individuellen Korrekturen.', 40, 440);
 
-  // initial: hide others
-  showSection('lesen');
+            doc.save(`${name.replace(/\s+/g, '_')}_A2_Zertifikat.pdf`);
+        });
 
-  </script>
+        // Download JSON report
+        $('#downloadReport').addEventListener('click', () => {
+            if (!window._state.report) computeResultAndShow();
+            const data = JSON.stringify(window._state.report || {}, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'a2_test_report.json'; a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Helpers: status icons
+        function makeStatus(ok) {
+            const sp = document.createElement('div');
+            sp.className = 'q-status';
+            const ic = document.createElement('div');
+            ic.className = 'icon';
+            ic.textContent = ok ? '✅' : '❌';
+            const txt = document.createElement('div');
+            txt.textContent = ok ? 'Richtig' : 'Falsch';
+            sp.appendChild(ic); sp.appendChild(txt);
+            return sp;
+        }
+        function makePartial() {
+            const sp = document.createElement('div');
+            sp.className = 'q-status';
+            const ic = document.createElement('div');
+            ic.className = 'icon';
+            ic.textContent = '⚠️';
+            const txt = document.createElement('div');
+            txt.textContent = 'Teilweise';
+            sp.appendChild(ic); sp.appendChild(txt);
+            return sp;
+        }
+
+        // Wait until hashes computed
+        async function waitForHashes() {
+            // spin until arrays have lengths
+            while (correctHashes.readingMCQ.length < readingMCQ.length || correctHashes.grammarMCQ.length < grammarMCQ.length) {
+                await new Promise(r => setTimeout(r, 80));
+            }
+        }
+
+        // Accessibility: pressing Ctrl+Enter on essay grades writing
+        $('#essay').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') $('#gradeWriteBtn').click();
+        });
+
+        // initial: hide others
+        showSection('lesen');
+
+    </script>
 </body>
+
 </html>
